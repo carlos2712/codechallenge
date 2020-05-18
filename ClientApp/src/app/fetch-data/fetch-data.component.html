@@ -1,0 +1,48 @@
+<div >
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="searchInput">Search</span>
+          </div>
+          <input type="text" [(ngModel)]="searchInput"  (keyup)="searchNews()" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <select (change)="getTop()" [(ngModel)]="top" class="custom-select" id="selecInput">
+          <option selected>Choose...</option>
+          <option value="10">Top 10</option>
+          <option value="20">Top 20</option>
+          <option value="30">Top 30</option>
+          <option value="100">Top 100</option>
+          <option value="200">Top 200</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="!news" class="row">
+      <div class="col-sm">
+        <div class="text-center">
+          <div class="spinner-border" role="status">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div  *ngIf="news" id="currentNews" class="row">
+      <div class="col-sm">
+        <div class="list-group">
+          <div #list *ngFor="let item of news">
+            <a href="{{ item.url ? item.url : '#'}}" target="_blank" [ngClass]="{'disabled': !item.url}"
+              class="list-group-item list-group-item-action">
+              <label><strong>{{item.title}}</strong></label>
+              <p>
+                <small>By : {{item.by}}</small>
+              </p>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
